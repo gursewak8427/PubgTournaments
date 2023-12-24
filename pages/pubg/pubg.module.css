@@ -1,0 +1,34 @@
+.singleRoom {
+    width: 30%;
+    max-width: 300px;
+    height: 200px;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-weight: bolder;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.blocked {
+    background: grey;
+    /* pointer-events: none; */
+    cursor: not-allowed !important;
+}
+
+.partiallyAvailable {
+    background: yellow;
+}
+
+.fullyAvailable {
+    background: green;
+}
+
+.occupied {
+    background: red;
+}
