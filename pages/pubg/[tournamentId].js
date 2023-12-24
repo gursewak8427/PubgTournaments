@@ -6,6 +6,7 @@ import Popup from "@/components/Popup";
 import { CircleStackIcon, ExclamationTriangleIcon, UserIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { Dialog } from "@headlessui/react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export default function pubg() {
     const router = useRouter();
@@ -18,7 +19,7 @@ export default function pubg() {
                 name: "Pubg Tournament 2023",
                 date: "25 Dec, 2023",
                 time: "08:00 PM",
-                price: "Per Kill 5",
+                price: "5",
                 enter_fee: "10",
                 participents: [{
                     pubg_id: "123214123",
@@ -28,9 +29,129 @@ export default function pubg() {
                         status: "PAID"
                     },
                     upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
+                }, {
+                    pubg_id: "123214123",
+                    pubg_id_name: "LIGER'44",
+                    payment: {
+                        paymentId: "pi12312fdsfsd",
+                        status: "PAID"
+                    },
+                    upiId: "9041912970@ybl"
                 }]
             })
-        }, 1000);
+        }, 0);
     }, [])
 
     if (!tournamentDetails)
@@ -40,20 +161,39 @@ export default function pubg() {
 
     return (
         <div>
-            <h1>{name}</h1>
-            <p>Date: {date}</p>
-            <p>Time: {time}</p>
-            <p>Price: {price}</p>
-            <p>Entry Fee: {enter_fee}</p>
+            <img src="/tournament.jpg" className={style.coverImage} />
+            <h1 className={style.name}>{name}</h1>
+            <div className={style.datetime}>
+                <div>
+                    <p>Entry Fee : {enter_fee}</p>
+                    <p>Per Kill : {price}</p>
+                </div>
+                <div>
+                    <p>{date}</p>
+                    <p>{time}</p>
+                </div>
+            </div>
 
-            <h2>Participants:</h2>
+            <h2 className={style.heading}>
+                <span>Participants</span>
+                {/* <button>Register Here</button> */}
+                <button>Join Now</button>
+            </h2>
+
             <ul>
-                {participents.map((participant) => (
-                    <li key={participant.pubg_id}>
-                        <p>Pubg ID: {participant.pubg_id}</p>
-                        <p>Pubg ID Name: {participant.pubg_id_name}</p>
-                        <p>Payment Status: {participant.payment.status}</p>
+                {participents.map((participant, index) => (
+                    <li key={participant.pubg_id} className={style.listItem}>
+                        <div>
+                            {/* <p>{participant.pubg_id}</p>
+                        <p>{participant.pubg_id_name}</p> */}
+                            <p>{index + 1 < 10 ? `0${index + 1}` : index + 1}</p>
+                            <p>{participant.pubg_id} <span>({participant.pubg_id_name})</span></p>
+                            {/* <p>Pubg ID Name: </p> */}
+                        </div>
+                        {/* <div>
+                        <p>Payment {participant.payment.paymentId} ({participant.payment.status})</p>
                         <p>UPI ID: {participant.upiId}</p>
+                    </div> */}
                     </li>
                 ))}
             </ul>

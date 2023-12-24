@@ -6,7 +6,7 @@ export default function Home() {
   const router = useRouter()
 
   useEffect(() => {
-    router.push("/pubg")
+    router.push("/pubg/123")
   }, [])
 
   return (
