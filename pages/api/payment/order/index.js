@@ -33,6 +33,7 @@ export default async function handler(req, res) {
 const createOrder = async (req, res) => {
     try {
         const { userId, amount, tournamentId } = req.body;
+        console.log({ body: req.body })
         const options = {
             amount: amount * 100, // amount in paise
             currency: "INR",

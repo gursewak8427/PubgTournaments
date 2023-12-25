@@ -56,7 +56,7 @@ export default function Pubg() {
                 "tournamentId": id
             });
 
-            if (!result) {
+            if (!result) { 
                 alert("Server error. Are you online?");
                 return;
             }
