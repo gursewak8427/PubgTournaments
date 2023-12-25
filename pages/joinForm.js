@@ -3,17 +3,29 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
+const setLocalData = (obj) => {
+    let keys = Object.keys(obj)
+    let key = keys[0]
+    let value = obj[key]
+    console.log({ [key]: value })
+    localStorage.setItem(key, value)
+}
+
+const getLocalData = (key) => localStorage.getItem(key)
+
 
 const JoinForm = ({ id, tournamentDetails }) => {
     const [isJoining, setJoining] = useState(false)
-    
+
     const router = useRouter();
     const [state, setState] = useState({
-        pubg_id: "",
-        pubg_id_name: "",
-        upi_id: "",
-        phone: "",
+        pubg_id: getLocalData("pubg_id"),
+        pubg_id_name: getLocalData("pubg_id_name"),
+        upi_id: getLocalData("upi_id"),
+        phone: getLocalData("phone"),
     })
+
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -39,11 +51,26 @@ const JoinForm = ({ id, tournamentDetails }) => {
 
 
     async function displayRazorpay() {
-        
+
         try {
+
+            let oldUser = tournamentDetails?.participents?.filter(p => {
+                if (p?.pubg_id == state.pubg_id) return p;
+            })
+
+            if (oldUser?.length != 0) {
+                alert("You already Join")
+                return;
+            }
+
             let { pubg_id, pubg_id_name, upi_id, phone } = state;
             if (pubg_id == "" || pubg_id_name == "" || upi_id == "" || phone == "") return;
+            if (!pubg_id || !pubg_id_name || !upi_id || !phone) return;
             // if (!userId) window.location.href = "/login"
+            setLocalData({ pubg_id })
+            setLocalData({ pubg_id_name })
+            setLocalData({ upi_id })
+            setLocalData({ phone })
 
             setJoining(true)
 
@@ -57,7 +84,8 @@ const JoinForm = ({ id, tournamentDetails }) => {
             }
 
             // creating a new order
-            const result = await axios.post("https://pubg-tournaments.onrender.com//api/payment/order/", {
+            const result = await axios.post("/api/payment/order/", {
+                // const result = await axios.post("https://pubg-tournaments.onrender.com//api/payment/order/", {
                 "amount": tournamentDetails?.entery_fees,
                 "tournamentId": id,
                 "pubg_id": state.pubg_id,
@@ -84,8 +112,11 @@ const JoinForm = ({ id, tournamentDetails }) => {
                 order_id: orderId,
                 handler: async function (response) {
                     console.log({ response })
+
+
                     setJoining(false)
                     window.location.reload();
+
                     // const data = {
                     //     orderCreationId: orderId,
                     //     razorpayPaymentId: response.razorpay_payment_id,
@@ -176,7 +207,7 @@ const JoinForm = ({ id, tournamentDetails }) => {
                 >
                     {
                         isJoining ? "Joining..." :
-                            "Join Tournament"
+                            `Pay ₹${tournamentDetails?.entery_fees} and Join Tournament`
                     }
                 </button>
                 {/* <div className='float-left mt-3'>

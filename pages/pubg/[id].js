@@ -232,8 +232,8 @@ export default function Pubg() {
             <h1 className={style.name}>{name}</h1>
             <div className={style.datetime}>
                 <div>
-                    <p>Entry Fee : {entery_fees}</p>
-                    <p>Per Kill : {price}</p>
+                    <p>Entry Fee : ₹{entery_fees}</p>
+                    <p>Per Kill : ₹{price}</p>
                 </div>
                 <div>
                     <p>{date}</p>
