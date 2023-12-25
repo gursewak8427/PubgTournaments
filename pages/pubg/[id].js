@@ -10,7 +10,7 @@ import Image from "next/image";
 import axios from "axios";
 
 export default function Pubg() {
-    const [userId, setUserId] = useState(123214123243)
+    const [userId, setUserId] = useState(null)
     const [userRole, setUserRole] = useState("ADMIN")
     const [isMatchEnd, setIsMatchEnd] = useState(false)
 
@@ -99,6 +99,7 @@ export default function Pubg() {
     const getData = async () => {
         try {
             console.log({ id: router.query })
+            if (id == -1) return;
             let response = await axios.get(`/api/tournament/${id}`)
             console.log({ response })
             if (response?.data) {
@@ -124,6 +125,7 @@ export default function Pubg() {
         localStorage.setItem('matchId', id || "");
         let userId = localStorage.getItem("user")
         if (userId && userId != "") {
+            setUserId(userId)
             getData();
         } else {
             router.push("/login")
@@ -275,6 +277,9 @@ export default function Pubg() {
     //     return "Please open invite Link"
     // }
 
+    if (id == -1)
+        return <>Please Open Invite Link</>
+
     if (!tournamentDetails)
         return <>Wait</>
 
@@ -282,6 +287,13 @@ export default function Pubg() {
 
     return (
         <div id={style.mainPage}>
+            <div className={style.top}>
+                <span className={style.name}>{userId}</span>
+                <button onClick={() => {
+                    localStorage.removeItem("user")
+                    window.location.href = "/login"
+                }}>Logout</button>
+            </div>
             <img src="/tournament.jpg" className={style.coverImage} />
             <h1 className={style.name}>{name}</h1>
             <div className={style.datetime}>

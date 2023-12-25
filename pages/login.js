@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Login = () => {
     const router = useRouter();
@@ -9,6 +9,18 @@ const Login = () => {
         email: "",
         password: "",
     })
+
+    useEffect(() => {
+        let userId = localStorage.getItem("user")
+        if (userId && userId != "") {
+            let matchId = localStorage.getItem('matchId')
+            if (!matchId || matchId == "") matchId = -1
+            router.push("/pubg/" + matchId)
+            // getData();
+        } else {
+            // router.push("/")
+        }
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,7 +40,7 @@ const Login = () => {
             if (response?.data) {
                 // Login Successfully
                 alert("Login Successfully")
-                localStorage.setItem('user', response?.data?._id || "");
+                localStorage.setItem('user', response?.data?.pubg_id || "");
                 let matchId = localStorage.getItem('matchId')
                 if (!matchId || matchId == "") matchId = -1
                 router.push("/pubg/" + matchId)

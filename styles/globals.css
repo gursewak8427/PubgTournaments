@@ -49,6 +49,7 @@ body {
 .registerForm label {}
 
 .registerForm input {
+  color: black;
   border: 2px solid;
   border-color: rgb(var(--foreground-rgb));
   border-radius: 10px;
