@@ -22,7 +22,7 @@ export default function Pubg() {
     const { id } = router.query;
     const [tournamentDetails, setTournamentDetails] = useState(null)
 
-    
+
 
     const getData = async () => {
         try {
@@ -246,16 +246,18 @@ export default function Pubg() {
                 {/* <button onClick={() => displayRazorpay(entery_fees)}>Join Now</button> */}
                 {/* <button>Register Here</button> */}
                 {
-                    tournamentDetails?.status === "PENDING" ?
-                        <button>PENDING</button> :
-                        tournamentDetails?.status === "OPEN" ?
-                            <button onClick={() => setIsPopupOpen(true)}>
-                                Join Now
-                            </button> :
-                            tournamentDetails?.status === "START" ?
-                                <button>Already Started</button> :
-                                tournamentDetails?.status === "END" &&
-                                <button>Match End</button>
+                    participents?.length == max_participents ?
+                        <button>Seat Full</button> :
+                        tournamentDetails?.status === "PENDING" ?
+                            <button>PENDING</button> :
+                            tournamentDetails?.status === "OPEN" ?
+                                <button onClick={() => setIsPopupOpen(true)}>
+                                    Join Now
+                                </button> :
+                                tournamentDetails?.status === "START" ?
+                                    <button>In Progress</button> :
+                                    tournamentDetails?.status === "END" &&
+                                    <button>Match End</button>
                 }
                 {/* <button>Join Now</button> */}
             </h2>
