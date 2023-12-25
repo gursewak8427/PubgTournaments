@@ -57,7 +57,7 @@ const JoinForm = ({ id, tournamentDetails }) => {
             }
 
             // creating a new order
-            const result = await axios.post("/api/payment/order/", {
+            const result = await axios.post("https://pubg-tournaments.onrender.com//api/payment/order/", {
                 "amount": entery_fees,
                 "tournamentId": id,
                 "pubg_id": state.pubg_id,
