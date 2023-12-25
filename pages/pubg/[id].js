@@ -35,71 +35,75 @@ export default function Pubg() {
     }
 
     async function displayRazorpay(amount) {
-        if (!userId) window.location.href = "/login"
+        try {
+            if (!userId) window.location.href = "/login"
 
-        setJoining(true)
+            setJoining(true)
 
-        const res = await loadScript(
-            "https://checkout.razorpay.com/v1/checkout.js"
-        );
+            const res = await loadScript(
+                "https://checkout.razorpay.com/v1/checkout.js"
+            );
 
-        if (!res) {
-            alert("Razorpay SDK failed to load. Are you online?");
-            return;
+            if (!res) {
+                alert("Razorpay SDK failed to load. Are you online?");
+                return;
+            }
+
+            // creating a new order
+            const result = await axios.post("https://pubg-tournaments.onrender.com/api/payment/order/", {
+                "userId": userId,
+                "amount": amount,
+                "tournamentId": id
+            });
+
+            if (!result) {
+                alert("Server error. Are you online?");
+                return;
+            }
+
+            // Getting the order details back
+            const { orderId } = result.data;
+
+            const options = {
+                key: process.env.RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
+                amount: amount.toString(),
+                currency: "INR",
+                name: "Soumya Corp.",
+                description: "Test Transaction",
+                // image: { logo },
+                order_id: orderId,
+                handler: async function (response) {
+                    console.log({ response })
+                    setJoining(false)
+                    // const data = {
+                    //     orderCreationId: orderId,
+                    //     razorpayPaymentId: response.razorpay_payment_id,
+                    //     razorpayOrderId: response.razorpay_order_id,
+                    //     razorpaySignature: response.razorpay_signature,
+                    // };
+
+                    // const result = await axios.post("http://localhost:5000/payment/success", data);
+
+                    // alert(result.data.msg);
+                },
+                prefill: {
+                    name: "Soumya Dey",
+                    email: "SoumyaDey@example.com",
+                    contact: "9999999999",
+                },
+                notes: {
+                    address: "Soumya Dey Corporate Office",
+                },
+                theme: {
+                    color: "#61dafb",
+                },
+            };
+
+            const paymentObject = new window.Razorpay(options);
+            paymentObject.open();
+        } catch (e) {
+            alert(e?.message || "Something Went Wrong")
         }
-
-        // creating a new order
-        const result = await axios.post("http://localhost:3000/api/payment/order/", {
-            "userId": "65888ea109fdcca911957f99",
-            "amount": amount,
-            "tournamentId": "65888b4809fdcca911957f95"
-        });
-
-        if (!result) {
-            alert("Server error. Are you online?");
-            return;
-        }
-
-        // Getting the order details back
-        const { orderId } = result.data;
-
-        const options = {
-            key: process.env.RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
-            amount: amount.toString(),
-            currency: "INR",
-            name: "Soumya Corp.",
-            description: "Test Transaction",
-            // image: { logo },
-            order_id: orderId,
-            handler: async function (response) {
-                console.log({ response })
-                setJoining(false)
-                // const data = {
-                //     orderCreationId: orderId,
-                //     razorpayPaymentId: response.razorpay_payment_id,
-                //     razorpayOrderId: response.razorpay_order_id,
-                //     razorpaySignature: response.razorpay_signature,
-                // };
-
-                // const result = await axios.post("http://localhost:5000/payment/success", data);
-
-                // alert(result.data.msg);
-            },
-            prefill: {
-                name: "Soumya Dey",
-                email: "SoumyaDey@example.com",
-                contact: "9999999999",
-            },
-            notes: {
-                address: "Soumya Dey Corporate Office",
-            },
-            theme: {
-                color: "#61dafb",
-            },
-        };
-
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
     }
 
     const getData = async () => {
