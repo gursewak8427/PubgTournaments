@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 const JoinForm = ({ id, tournamentDetails }) => {
     const [isJoining, setJoining] = useState(false)
-    const { name, date, time, price, entery_fees, participents, max_participents, min_participents } = tournamentDetails;
+    const { entery_fees } = tournamentDetails;
 
     const router = useRouter();
     const [state, setState] = useState({
