@@ -11,10 +11,17 @@ const JoinForm = ({ id, tournamentDetails }) => {
         let key = keys[0]
         let value = obj[key]
         console.log({ [key]: value })
-        window.localStorage.setItem(key, value)
+        if (typeof window !== 'undefined') {
+            localStorage.setItem(key, value)
+        }
     }
 
-    const getLocalData = (key) => window.localStorage.getItem(key)
+    const getLocalData = (key) => {
+        if (typeof window !== 'undefined') {
+            localStorage.getItem(key)
+        }
+
+    }
 
     const [isJoining, setJoining] = useState(false)
 
