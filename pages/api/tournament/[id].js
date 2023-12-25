@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         return res.json(tournaments)
 
       case 'PATCH':
-        updateTournament(req, res)
+        return await updateTournament(req, res)
 
       default:
         return res.status(404).end(`Method ${method} Not Allowed`)
@@ -38,4 +38,5 @@ const updateTournament = async (req, res) => {
   const data = req.body;
   const { id } = req.query
   await Tournament.updateOne({ _id: id }, { ...data });
+  return res.end("Update Successfully")
 }

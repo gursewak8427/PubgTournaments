@@ -13,6 +13,7 @@ export default function Pubg() {
     const [userId, setUserId] = useState(null)
     const [userRole, setUserRole] = useState("ADMIN")
     const [isMatchEnd, setIsMatchEnd] = useState(false)
+    const [isJoining, setJoining] = useState(false)
 
     const [sortBy, setSortBy] = useState(1)
     const router = useRouter();
@@ -34,6 +35,10 @@ export default function Pubg() {
     }
 
     async function displayRazorpay(amount) {
+        if (!userId) window.location.href = "/login"
+
+        setJoining(true)
+
         const res = await loadScript(
             "https://checkout.razorpay.com/v1/checkout.js"
         );
@@ -68,6 +73,7 @@ export default function Pubg() {
             order_id: orderId,
             handler: async function (response) {
                 console.log({ response })
+                setJoining(false)
                 // const data = {
                 //     orderCreationId: orderId,
                 //     razorpayPaymentId: response.razorpay_payment_id,
@@ -103,12 +109,6 @@ export default function Pubg() {
             let response = await axios.get(`/api/tournament/${id}`)
             console.log({ response })
             if (response?.data) {
-                // Login Successfully
-                // alert("Login Successfully")
-                // localStorage.setItem('user', response?.data?._id || "");
-                // let matchId = localStorage.getItem('matchId')
-                // if (!matchId || matchId == "") matchId = -1
-                // router.push("/pubg/" + matchId)
                 setTournamentDetails(response?.data || null)
             }
         } catch (err) {
@@ -121,14 +121,15 @@ export default function Pubg() {
     useEffect(() => {
         console.log(id)
         if (!id) return;
+        getData();
 
         localStorage.setItem('matchId', id || "");
         let userId = localStorage.getItem("user")
         if (userId && userId != "") {
             setUserId(userId)
-            getData();
         } else {
-            router.push("/login")
+            setUserId(null)
+            // router.push("/login")
         }
 
         // setTimeout(() => {
@@ -287,13 +288,16 @@ export default function Pubg() {
 
     return (
         <div id={style.mainPage}>
-            <div className={style.top}>
-                <span className={style.name}>{userId}</span>
-                <button onClick={() => {
-                    localStorage.removeItem("user")
-                    window.location.href = "/login"
-                }}>Logout</button>
-            </div>
+            {
+                userId &&
+                <div className={style.top}>
+                    <span className={style.name}>{userId}</span>
+                    <button onClick={() => {
+                        localStorage.removeItem("user")
+                        window.location.href = "/login"
+                    }}>Logout</button>
+                </div>
+            }
             <img src="/tournament.jpg" className={style.coverImage} />
             <h1 className={style.name}>{name}</h1>
             <div className={style.datetime}>
@@ -309,18 +313,21 @@ export default function Pubg() {
 
             <h2 className={style.heading}>
                 <span>Participants ({participents?.length}/{max_participents})</span>
-                <button onClick={() => displayRazorpay(entery_fees)}>Join Now</button>
+                {/* <button onClick={() => displayRazorpay(entery_fees)}>Join Now</button> */}
                 {/* <button>Register Here</button> */}
-                {/* {
+                {
                     tournamentDetails?.status === "PENDING" ?
                         <button>PENDING</button> :
                         tournamentDetails?.status === "OPEN" ?
-                            <button onClick={displayRazorpay}>Join Now</button> :
+                            <button onClick={() => displayRazorpay(entery_fees)}>{
+                                isJoining ? "Joining..." : "Join Now"
+                            }
+                            </button> :
                             tournamentDetails?.status === "START" ?
                                 <button>Already Started</button> :
                                 tournamentDetails?.status === "END" &&
                                 <button>Match End</button>
-                } */}
+                }
                 {/* <button>Join Now</button> */}
             </h2>
             <i><p className={style.heading2}>Minimum {min_participents} Participants are required to start the match otherwise your money will be refunded</p></i>
