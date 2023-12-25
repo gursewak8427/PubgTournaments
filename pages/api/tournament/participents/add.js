@@ -36,14 +36,15 @@ const addParticipent = async (req, res) => {
         let paymentStatus = paymentEntity?.status === "captured" ? "PAID" : "FAILED"
 
         let orderDetails = await PaymentOrders.findOne({ orderId })
-        let { userId, tournamentId } = orderDetails;
+        let { tournamentId, pubg_id, pubg_id_name, upi_id, phone } = orderDetails;
 
         let t = await Tournament.findOne({ _id: tournamentId })
-        let u = await User.findOne({ pubg_id: userId })
+        // let u = await User.findOne({ pubg_id: userId })
 
         t.participents.push({
-            pubg_id: u?.pubg_id,
-            pubg_id_name: u?.pubg_id_name,
+            pubg_id: pubg_id,
+            pubg_id_name: pubg_id_name,
+            upi_id: upi_id,
             entery_fees: {
                 paymentId: paymentId,
                 status: paymentStatus,
@@ -52,7 +53,6 @@ const addParticipent = async (req, res) => {
                 paymentId: "",
                 status: "Pending",
             },
-            upi_id: u?.upi_id,
         })
 
         await t.save();

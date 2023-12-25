@@ -8,103 +8,21 @@ import { Dialog } from "@headlessui/react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import axios from "axios";
+import Register from "../register";
+import JoinForm from "../joinForm";
 
 export default function Pubg() {
-    const [userId, setUserId] = useState(null)
+    // const [userId, setUserId] = useState(null)
+    const [isPopupOpen, setIsPopupOpen] = useState(false)
     const [userRole, setUserRole] = useState("ADMIN")
     const [isMatchEnd, setIsMatchEnd] = useState(false)
-    const [isJoining, setJoining] = useState(false)
 
     const [sortBy, setSortBy] = useState(1)
     const router = useRouter();
     const { id } = router.query;
     const [tournamentDetails, setTournamentDetails] = useState(null)
 
-    function loadScript(src) {
-        return new Promise((resolve) => {
-            const script = document.createElement("script");
-            script.src = src;
-            script.onload = () => {
-                resolve(true);
-            };
-            script.onerror = () => {
-                resolve(false);
-            };
-            document.body.appendChild(script);
-        });
-    }
-
-    async function displayRazorpay(amount) {
-        try {
-            if (!userId) window.location.href = "/login"
-
-            setJoining(true)
-
-            const res = await loadScript(
-                "https://checkout.razorpay.com/v1/checkout.js"
-            );
-
-            if (!res) {
-                alert("Razorpay SDK failed to load. Are you online?");
-                return;
-            }
-
-            // creating a new order
-            const result = await axios.post("https://pubg-tournaments.onrender.com/api/payment/order/", {
-                "userId": userId,
-                "amount": amount,
-                "tournamentId": id
-            });
-
-            if (!result) { 
-                alert("Server error. Are you online?");
-                return;
-            }
-
-            // Getting the order details back
-            const { orderId } = result.data;
-
-            const options = {
-                key: process.env.RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
-                amount: amount.toString(),
-                currency: "INR",
-                name: "Soumya Corp.",
-                description: "Test Transaction",
-                // image: { logo },
-                order_id: orderId,
-                handler: async function (response) {
-                    console.log({ response })
-                    setJoining(false)
-                    // const data = {
-                    //     orderCreationId: orderId,
-                    //     razorpayPaymentId: response.razorpay_payment_id,
-                    //     razorpayOrderId: response.razorpay_order_id,
-                    //     razorpaySignature: response.razorpay_signature,
-                    // };
-
-                    // const result = await axios.post("http://localhost:5000/payment/success", data);
-
-                    // alert(result.data.msg);
-                },
-                prefill: {
-                    name: "Soumya Dey",
-                    email: "SoumyaDey@example.com",
-                    contact: "9999999999",
-                },
-                notes: {
-                    address: "Soumya Dey Corporate Office",
-                },
-                theme: {
-                    color: "#61dafb",
-                },
-            };
-
-            const paymentObject = new window.Razorpay(options);
-            paymentObject.open();
-        } catch (e) {
-            alert(e?.message || "Something Went Wrong")
-        }
-    }
+    
 
     const getData = async () => {
         try {
@@ -123,18 +41,18 @@ export default function Pubg() {
     }
 
     useEffect(() => {
-        console.log(id)
         if (!id) return;
+
         getData();
 
-        localStorage.setItem('matchId', id || "");
-        let userId = localStorage.getItem("user")
-        if (userId && userId != "") {
-            setUserId(userId)
-        } else {
-            setUserId(null)
-            // router.push("/login")
-        }
+        // localStorage.setItem('matchId', id || "");
+        // let userId = localStorage.getItem("user")
+        // if (userId && userId != "") {
+        //     setUserId(userId)
+        // } else {
+        //     setUserId(null)
+        //     // router.push("/login")
+        // }
 
         // setTimeout(() => {
         //     setTournamentDetails({
@@ -291,8 +209,16 @@ export default function Pubg() {
     const { name, date, time, price, entery_fees, participents, max_participents, min_participents } = tournamentDetails;
 
     return (
+
         <div id={style.mainPage}>
             {
+                <Popup isOpen={isPopupOpen} onClose={() => {
+                    setIsPopupOpen(false)
+                }}>
+                    <JoinForm id={id} tournamentDetails={tournamentDetails} />
+                </Popup>
+            }
+            {/* {
                 userId &&
                 <div className={style.top}>
                     <span className={style.name}>{userId}</span>
@@ -301,7 +227,7 @@ export default function Pubg() {
                         window.location.href = "/login"
                     }}>Logout</button>
                 </div>
-            }
+            } */}
             <img src="/tournament.jpg" className={style.coverImage} />
             <h1 className={style.name}>{name}</h1>
             <div className={style.datetime}>
@@ -323,9 +249,8 @@ export default function Pubg() {
                     tournamentDetails?.status === "PENDING" ?
                         <button>PENDING</button> :
                         tournamentDetails?.status === "OPEN" ?
-                            <button onClick={() => displayRazorpay(entery_fees)}>{
-                                isJoining ? "Joining..." : "Join Now"
-                            }
+                            <button onClick={() => setIsPopupOpen(true)}>
+                                Join Now
                             </button> :
                             tournamentDetails?.status === "START" ?
                                 <button>Already Started</button> :
@@ -347,7 +272,8 @@ export default function Pubg() {
                                 tournamentDetails?.status == "END" && <p>{participant?.kills} Kills</p>
                             }
                             {
-                                participant?.pubg_id == userId && userRole != "ADMIN" && <>
+                                userRole != "ADMIN" && <>
+                                    {/* participant?.pubg_id == userId && userRole != "ADMIN" && <> */}
                                     <p style={{ color: "orange" }}>UPI : {participant.upi_id}</p>
                                     <p>Entery Fee : {participant?.entery_fees?.paymentId} ({participant?.entery_fees?.status})</p>
                                     {

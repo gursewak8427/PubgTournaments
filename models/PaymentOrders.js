@@ -12,7 +12,11 @@ const PaymentOrdersS = new mongoose.Schema({
     },
     tournamentId: {
         type: mongoose.Types.ObjectId,
-    }
+    },
+    pubg_id: String,
+    pubg_id_name: String,
+    upi_id: String,
+    phone: String
 }, {
     timestamps: true,
 });

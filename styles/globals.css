@@ -40,10 +40,24 @@ body {
   background-position: right top;
 }
 
+@media screen and (max-width: 420px) {
+  .registerForm {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .registerForm>div {
+    margin: 0;
+    padding: 5px;
+  }
+
+}
+
 .registerForm>div {
   margin: 10px;
   border-radius: 5px;
-  background: rgba(var(--form-box-background-rgba));
+  /* background: rgba(var(--form-box-background-rgba)); */
 }
 
 .registerForm label {}

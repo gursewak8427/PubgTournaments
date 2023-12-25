@@ -32,7 +32,7 @@ export default async function handler(req, res) {
 
 const createOrder = async (req, res) => {
     try {
-        const { userId, amount, tournamentId } = req.body;
+        const { amount, tournamentId, pubg_id, pubg_id_name, upi_id, phone } = req.body;
         console.log({ body: req.body })
         const options = {
             amount: amount * 100, // amount in paise
@@ -43,8 +43,8 @@ const createOrder = async (req, res) => {
         order = await PaymentOrders.create({
             orderId: order.id,
             amount: amount,
-            userId: userId,
-            tournamentId
+            tournamentId,
+            pubg_id, pubg_id_name, upi_id, phone
         });
 
         return res.json(order)
