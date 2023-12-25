@@ -6,8 +6,7 @@ import React, { useState } from 'react';
 
 const JoinForm = ({ id, tournamentDetails }) => {
     const [isJoining, setJoining] = useState(false)
-    const { entery_fees } = tournamentDetails;
-
+    
     const router = useRouter();
     const [state, setState] = useState({
         pubg_id: "",
@@ -40,6 +39,7 @@ const JoinForm = ({ id, tournamentDetails }) => {
 
 
     async function displayRazorpay() {
+        
         try {
             let { pubg_id, pubg_id_name, upi_id, phone } = state;
             if (pubg_id == "" || pubg_id_name == "" || upi_id == "" || phone == "") return;
@@ -58,7 +58,7 @@ const JoinForm = ({ id, tournamentDetails }) => {
 
             // creating a new order
             const result = await axios.post("https://pubg-tournaments.onrender.com//api/payment/order/", {
-                "amount": entery_fees,
+                "amount": tournamentDetails?.entery_fees,
                 "tournamentId": id,
                 "pubg_id": state.pubg_id,
                 "pubg_id_name": state.pubg_id_name,
@@ -76,7 +76,7 @@ const JoinForm = ({ id, tournamentDetails }) => {
 
             const options = {
                 key: process.env.RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
-                amount: entery_fees.toString(),
+                amount: tournamentDetails?.entery_fees.toString(),
                 currency: "INR",
                 name: "Jashan Pubg Tournaments",
                 description: "Jashan Pubg Tournaments",
