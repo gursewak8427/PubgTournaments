@@ -247,17 +247,17 @@ export default function Pubg() {
                 {/* <button>Register Here</button> */}
                 {
                     participents?.length == max_participents ?
-                        <button>Seat Full</button> :
+                        <button onClick={()=>alert("Seats are full")}>Seat Full</button> :
                         tournamentDetails?.status === "PENDING" ?
-                            <button>PENDING</button> :
+                            <button onClick={()=>alert("Match is Pending")}>PENDING</button> :
                             tournamentDetails?.status === "OPEN" ?
                                 <button onClick={() => setIsPopupOpen(true)}>
                                     Join Now
                                 </button> :
                                 tournamentDetails?.status === "START" ?
-                                    <button>In Progress</button> :
+                                    <button onClick={()=>alert("Match is already Started")}>In Progress</button> :
                                     tournamentDetails?.status === "END" &&
-                                    <button>Match End</button>
+                                    <button onClick={()=>alert("This Match is END")}>Match End</button>
                 }
                 {/* <button>Join Now</button> */}
             </h2>
