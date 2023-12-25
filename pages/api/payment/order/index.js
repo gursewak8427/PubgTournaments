@@ -49,6 +49,7 @@ const createOrder = async (req, res) => {
 
         return res.json(order)
     } catch (error) {
+        console.log({ error })
         return res.status(401).end(error?.message || "Something went wrong")
     }
 }
