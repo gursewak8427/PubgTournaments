@@ -20,7 +20,6 @@ const JoinForm = ({ id, tournamentDetails }) => {
         if (typeof window !== 'undefined') {
             localStorage.getItem(key)
         }
-
     }
 
     const [isJoining, setJoining] = useState(false)
@@ -92,8 +91,8 @@ const JoinForm = ({ id, tournamentDetails }) => {
             }
 
             // creating a new order
-            const result = await axios.post("/api/payment/order/", {
-                // const result = await axios.post("https://pubg-tournaments.onrender.com//api/payment/order/", {
+            // const result = await axios.post("/api/payment/order/", {
+            const result = await axios.post("https://pubg-tournaments.onrender.com//api/payment/order/", {
                 "amount": tournamentDetails?.entery_fees,
                 "tournamentId": id,
                 "pubg_id": state.pubg_id,
