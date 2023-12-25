@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import axios from "axios";
 
-export default function pubg() {
+export default function Pubg() {
     const [userId, setUserId] = useState(123214123243)
     const [userRole, setUserRole] = useState("ADMIN")
     const [isMatchEnd, setIsMatchEnd] = useState(false)

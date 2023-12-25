@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 
-const login = () => {
+const Register = () => {
     return (
         <div className="registerForm flex justify-center items-center min-h-screen bg-dark text-white">
             <div className="w-96 p-8 rounded-lg shadow-md bg-div">
@@ -69,4 +69,4 @@ const login = () => {
     );
 }
 
-export default login;
+export default Register;
