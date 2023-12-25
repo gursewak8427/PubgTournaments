@@ -8,7 +8,7 @@ const PaymentOrdersS = new mongoose.Schema({
         type: Number
     },
     userId: {
-        type: mongoose.Types.ObjectId,
+        type: String,
     },
     tournamentId: {
         type: mongoose.Types.ObjectId,

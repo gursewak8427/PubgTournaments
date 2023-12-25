@@ -39,7 +39,7 @@ const addParticipent = async (req, res) => {
         let { userId, tournamentId } = orderDetails;
 
         let t = await Tournament.findOne({ _id: tournamentId })
-        let u = await User.findOne({ _id: userId })
+        let u = await User.findOne({ pubg_id: userId })
 
         t.participents.push({
             pubg_id: u?.pubg_id,
