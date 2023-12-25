@@ -3,7 +3,7 @@ import React from 'react';
 
 const login = () => {
     return (
-        <div className="registerForm flex min-h-screen bg-dark text-white">
+        <div className="registerForm flex justify-center items-center min-h-screen bg-dark text-white">
             <div className="w-96 p-8 rounded-lg shadow-md bg-div">
                 <h2 className="mb-6 text-2xl font-bold underline">Register Here</h2>
                 <label className="block mb-4">
@@ -12,7 +12,7 @@ const login = () => {
                         placeholder='123123123123'
                         type="text"
                         className="w-full px-4 py-2 mt-2 rounded bg-input text-white"
-                    />
+                    /> ,
                 </label>
                 <label className="block mb-4">
                     Pubg username:

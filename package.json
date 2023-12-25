@@ -11,7 +11,10 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
+    "axios": "^1.6.2",
+    "mongoose": "^8.0.3",
     "next": "14.0.4",
+    "razorpay": "^2.9.2",
     "react": "^18",
     "react-dom": "^18"
   },

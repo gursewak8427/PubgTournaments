@@ -10,6 +10,9 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --form-background-image: url("https://i.pinimg.com/564x/f9/b4/62/f9b4620b4090c6fbb9694f6eabb5d823.jpg");
+  --form-box-background-rgba: 255, 255, 255, 0.85;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +20,9 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
+
+    --form-background-image: linear-gradient(90deg, rgb(33, 33, 33) 0%, transparent 59%), repeating-linear-gradient(45deg, rgba(168, 168, 168, 0.1) 0px, rgba(168, 168, 168, 0.1) 1px, transparent 1px, transparent 13px), repeating-linear-gradient(135deg, rgba(168, 168, 168, 0.1) 0px, rgba(168, 168, 168, 0.1) 1px, transparent 1px, transparent 13px), linear-gradient(90deg, rgb(33, 33, 33), rgb(33, 33, 33));
+    --form-box-background-rgba: 0, 0, 0, 0.4;
   }
 }
 
@@ -28,35 +34,32 @@ body {
 }
 
 .registerForm {
-  background-image: linear-gradient(90deg, rgb(33, 33, 33) 0%, transparent 59%), repeating-linear-gradient(45deg, rgba(168, 168, 168, 0.1) 0px, rgba(168, 168, 168, 0.1) 1px, transparent 1px, transparent 13px), repeating-linear-gradient(135deg, rgba(168, 168, 168, 0.1) 0px, rgba(168, 168, 168, 0.1) 1px, transparent 1px, transparent 13px), linear-gradient(90deg, rgb(33, 33, 33), rgb(33, 33, 33));
-  /* background-image: radial-gradient(circle at center center, transparent 0%, rgb(0, 0, 0) 85%), linear-gradient(78deg, rgba(192, 192, 192, 0.05) 0%, rgba(192, 192, 192, 0.05) 50%, rgba(60, 60, 60, 0.05) 50%, rgba(60, 60, 60, 0.05) 100%), linear-gradient(227deg, rgba(97, 97, 97, 0.05) 0%, rgba(97, 97, 97, 0.05) 50%, rgba(52, 52, 52, 0.05) 50%, rgba(52, 52, 52, 0.05) 100%), linear-gradient(240deg, rgba(98, 98, 98, 0.05) 0%, rgba(98, 98, 98, 0.05) 50%, rgba(249, 249, 249, 0.05) 50%, rgba(249, 249, 249, 0.05) 100%), linear-gradient(187deg, rgba(1, 1, 1, 0.05) 0%, rgba(1, 1, 1, 0.05) 50%, rgba(202, 202, 202, 0.05) 50%, rgba(202, 202, 202, 0.05) 100%), linear-gradient(101deg, rgba(61, 61, 61, 0.05) 0%, rgba(61, 61, 61, 0.05) 50%, rgba(254, 254, 254, 0.05) 50%, rgba(254, 254, 254, 0.05) 100%), linear-gradient(176deg, rgba(237, 237, 237, 0.05) 0%, rgba(237, 237, 237, 0.05) 50%, rgba(147, 147, 147, 0.05) 50%, rgba(147, 147, 147, 0.05) 100%), linear-gradient(304deg, rgba(183, 183, 183, 0.05) 0%, rgba(183, 183, 183, 0.05) 50%, rgba(57, 57, 57, 0.05) 50%, rgba(57, 57, 57, 0.05) 100%), radial-gradient(circle at center center, hsl(351, 4%, 12%), hsl(351, 4%, 12%)); */
-  /* background-image: repeating-linear-gradient(90deg, hsla(57, 0%, 42%, 0.09) 0px, hsla(57, 0%, 42%, 0.09) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(0deg, hsla(57, 0%, 42%, 0.09) 0px, hsla(57, 0%, 42%, 0.09) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(0deg, hsla(57, 0%, 42%, 0.09) 0px, hsla(57, 0%, 42%, 0.09) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(90deg, hsla(57, 0%, 42%, 0.09) 0px, hsla(57, 0%, 42%, 0.09) 1px, transparent 1px, transparent 10px), linear-gradient(90deg, rgb(20, 20, 20), rgb(20, 20, 20)); */
-  /* background: url("/register.png") no-repeat; */
+  color: rgb(var(--foreground-rgb));
+  background-image: var(--form-background-image);
   background-size: cover;
   background-position: right top;
-  /* -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px); */
 }
 
-.registerForm label {
-  /* color: black; */
+.registerForm>div {
+  margin: 10px;
+  border-radius: 5px;
+  background: rgba(var(--form-box-background-rgba));
 }
+
+.registerForm label {}
 
 .registerForm input {
-  background: rgba(255, 255, 255, 0.445);
-  border: 1px solid white;
+  border: 2px solid;
+  border-color: rgb(var(--foreground-rgb));
   border-radius: 10px;
 }
 
 .registerForm input::placeholder {
-  color: black;
+  /* color: black; */
 }
 
 
 .registerForm button {
   margin-top: 40px;
-  background: rgba(218, 165, 32, 0.459);
+  background: rgb(218, 165, 32);
 }
