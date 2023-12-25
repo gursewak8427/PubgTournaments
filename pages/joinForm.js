@@ -3,18 +3,19 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
-const setLocalData = (obj) => {
-    let keys = Object.keys(obj)
-    let key = keys[0]
-    let value = obj[key]
-    console.log({ [key]: value })
-    localStorage.setItem(key, value)
-}
-
-const getLocalData = (key) => localStorage.getItem(key)
-
 
 const JoinForm = ({ id, tournamentDetails }) => {
+
+    const setLocalData = (obj) => {
+        let keys = Object.keys(obj)
+        let key = keys[0]
+        let value = obj[key]
+        console.log({ [key]: value })
+        localStorage.setItem(key, value)
+    }
+
+    const getLocalData = (key) => localStorage.getItem(key)
+
     const [isJoining, setJoining] = useState(false)
 
     const router = useRouter();
