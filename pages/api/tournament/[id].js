@@ -9,6 +9,7 @@ export default async function handler(req, res) {
 
     await dbConnect();
 
+
     switch (method) {
       case 'GET':
         let tournaments;
@@ -36,6 +37,7 @@ export default async function handler(req, res) {
 
 const updateTournament = async (req, res) => {
   const data = req.body;
+  console.log({ data })
   const { id } = req.query
   await Tournament.updateOne({ _id: id }, { ...data });
   return res.end("Update Successfully")

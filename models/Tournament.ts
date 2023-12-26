@@ -15,6 +15,8 @@ export interface IParticipents extends mongoose.Document {
 }
 
 export interface ITournaments extends mongoose.Document {
+    roomId: string
+    roomPass: string
     name: string
     date: string
     time: string
@@ -28,6 +30,8 @@ export interface ITournaments extends mongoose.Document {
 
 
 const TournamentsSchema = new mongoose.Schema<ITournaments>({
+    roomId: String,
+    roomPass: String,
     name: String,
     date: String,
     time: String,

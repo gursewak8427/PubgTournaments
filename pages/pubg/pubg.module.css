@@ -3,7 +3,7 @@
     margin: 20px auto;
 }
 
-.top{
+.top {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -12,7 +12,7 @@
     padding: 0 10px;
 }
 
-.top > button{
+.top>button {
     border: 1px solid red;
     color: red;
     background: rgba(255, 0, 0, 0.2);
@@ -20,6 +20,38 @@
     border-radius: 20px;
 }
 
+.datetime p {
+    display: flex;
+    align-items: center;
+}
+
+.copyIcon {
+    border-radius: 10px;
+    width: 30px;
+    padding: 5px;
+    background: white;
+    margin-left: 10px;
+    /* height: 20px; */
+}
+
+.headingWithButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.headingWithButton>div {
+    display: flex;
+    flex-direction: row;
+}
+
+.headingWithButton>div>span {
+    margin: 5px;
+    padding: 5px 20px;
+    background: grey;
+    border-radius: 40px;
+}
 
 .coverImage {
     width: calc(100% - 20px);
@@ -36,7 +68,7 @@
     text-align: center;
     margin: 10px;
     font-size: 120%;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 
 .datetime {
@@ -56,6 +88,22 @@
     font-size: 80%;
     font-weight: lighter;
     margin-bottom: 20px;
+}
+
+.heading.admin button {
+    background: white !important;
+}
+
+.heading.admin button.active {
+    background: goldenrod !important;
+    color: black;
+
+    padding: 5px 20px;
+    border-radius: 20px;
+    margin-right: 10px;
+    /* border: 4px solid goldenrod; */
+    box-shadow: 0 0 40px -2px goldenrod;
+    animation: buttonAnimation 2s linear infinite;
 }
 
 .heading {
@@ -83,7 +131,7 @@
     top: 50%;
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
-    width: 70%;
+    width: 80%;
     height: 5px;
     background: linear-gradient(90deg, white, white, white, rgb(168, 32, 32) 10%, rgb(206, 190, 150) 10%, rgb(212, 187, 123) 10%, goldenrod);
     z-index: -1;
