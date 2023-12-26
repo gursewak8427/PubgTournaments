@@ -36,7 +36,7 @@
 
 .headingWithButton {
     display: flex;
-    flex-direction: row;
+    flex-direction: column-reverse;
     align-items: center;
     justify-content: space-between;
 }
@@ -88,6 +88,18 @@
     font-size: 80%;
     font-weight: lighter;
     margin-bottom: 20px;
+}
+
+.heading.admin {
+    flex-direction: column !important;
+}
+
+.heading.admin>span {
+    margin-bottom: 20px;
+}
+
+.heading.admin::after {
+    display: none;
 }
 
 .heading.admin button {
