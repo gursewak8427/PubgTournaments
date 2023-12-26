@@ -240,7 +240,10 @@ export default function Pubg() {
                 <Popup isOpen={isPopupOpen} onClose={() => {
                     setIsPopupOpen(false)
                 }}>
-                    <UpdateParticipents id={id} activeParticipent={activeParticipent} tournamentDetails={tournamentDetails} />
+                    {
+                        tournamentDetails &&
+                        <UpdateParticipents id={id} activeParticipent={activeParticipent} tournamentDetails={tournamentDetails} />
+                    }
                 </Popup>
             }
             {

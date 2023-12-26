@@ -1,36 +1,30 @@
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 const UpdateParticipents = ({ id, tournamentDetails, activeParticipent }) => {
-
-    const setLocalData = (obj) => {
-        let keys = Object.keys(obj)
-        let key = keys[0]
-        let value = obj[key]
-        console.log({ [key]: value })
-        if (typeof window !== 'undefined') {
-            localStorage.setItem(key, value)
-        }
-    }
-
-    const getLocalData = (key) => {
-        if (typeof window !== 'undefined') {
-            localStorage.getItem(key)
-        }
-    }
 
     const [isJoining, setJoining] = useState(false)
 
     const router = useRouter();
     const [state, setState] = useState({
-        t_id: tournamentDetails?.participents[activeParticipent]?.payment?.paymentId || "NULL",
-        t_status: tournamentDetails?.participents[activeParticipent]?.payment?.status || "ELIMINATE",
-        kills: tournamentDetails?.participents[activeParticipent]?.kills || 0
+        t_id: "",
+        t_status: "",
+        kills: ""
     })
 
+    useEffect(() => {
+        if (tournamentDetails) {
+            setState({
+                t_id: tournamentDetails?.participents[activeParticipent]?.payment?.paymentId || "NULL",
+                t_status: tournamentDetails?.participents[activeParticipent]?.payment?.status || "ELIMINATE",
+                kills: tournamentDetails?.participents[activeParticipent]?.kills || 0
+            })
+        }
+
+    }, [tournamentDetails])
 
 
     const handleChange = (e) => {
@@ -65,7 +59,7 @@ const UpdateParticipents = ({ id, tournamentDetails, activeParticipent }) => {
             const result = await axios.patch("/api/tournament/participents/update", {
                 // const result = await axios.post("https://pubg-tournaments.onrender.com/api/tournament/participents/update", {
                 "tournamnetId": id,
-                "participentPubgId": tournamentDetails.participents[activeParticipent]?.pubg_id,
+                "participentPubgId": tournamentDetails?.participents[activeParticipent]?.pubg_id,
                 "kills": state.kills,
                 "transactionId": state.t_id,
                 "transactionStatus": state.t_status
@@ -79,6 +73,7 @@ const UpdateParticipents = ({ id, tournamentDetails, activeParticipent }) => {
         }
     }
 
+    if (!tournamentDetails) return "Wait"
 
 
     return (
@@ -107,8 +102,8 @@ const UpdateParticipents = ({ id, tournamentDetails, activeParticipent }) => {
                         className="w-full px-4 py-2 mt-2 rounded bg-input text-white"
                     />
                 </label> */}
-                <h1>{tournamentDetails.participents[activeParticipent]?.pubg_id} ({tournamentDetails.participents[activeParticipent]?.pubg_id_name})</h1>
-                <h1>UPI Id : {tournamentDetails.participents[activeParticipent]?.upi_id}</h1>
+                <h1>{tournamentDetails?.participents[activeParticipent]?.pubg_id} ({tournamentDetails?.participents[activeParticipent]?.pubg_id_name})</h1>
+                <h1>UPI Id : {tournamentDetails?.participents[activeParticipent]?.upi_id}</h1>
                 <hr />
                 <br />
                 <label className="block mb-4">
